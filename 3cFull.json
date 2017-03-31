@@ -16747,100 +16747,121 @@
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "marker",
+        "City": "Hershey",
+        "Population (thousands)": 565.006,
+        "Median HH Income (inflation adjusted USD)": "58,166.00",
+        "Poverty Rate (%)": 10.5,
+        "Employment Growth (%)": 1.7169
+      },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -78.39431762695312,
-          40.51745320894504
+          -76.65298461914062,
+          40.28895415740959
         ]
       }
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "marker",
+        "City": "State College",
+        "Population (thousands)": 160.58,
+        "Median HH Income (inflation adjusted USD)": "56,337.00",
+        "Poverty Rate (%)": 16.8,
+        "Employment Growth (%)": 1.7169
+      },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.73126220703125,
-          39.95606977009003
+          -77.86148071289062,
+          40.79301881008675
         ]
       }
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "marker",
+        "City": "Williamsport",
+        "Population (thousands)": 116.048,
+        "Median HH Income (inflation adjusted USD)": "51,455.00",
+        "Poverty Rate (%)": 15.2,
+        "Employment Growth (%)": -5.0343
+      },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.87408447265625,
-          40.26276066437183
+          -77.00489044189453,
+          41.24890252240322
         ]
       }
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "marker",
+        "City": "Scranton",
+        "Population (thousands)": 558.166,
+        "Median HH Income (inflation adjusted USD)": "49,670.00",
+        "Poverty Rate (%)": 15.2,
+        "Employment Growth (%)": -0.7692
+      },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -76.3055419921875,
-          40.03812939078128
+          -75.66215515136719,
+          41.408230864902784
         ]
       }
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "marker",
+        "City": "Allentown",
+        "Population (thousands)": 832.327,
+        "Median HH Income (inflation adjusted USD)": "60,671.00",
+        "Poverty Rate (%)": 9.9,
+        "Employment Growth (%)": -0.1036
+      },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.9326934814453,
-          40.333983227838104
+          -75.47332763671875,
+          40.602484146302075
         ]
       }
     },
     {
       "type": "Feature",
-      "properties": {},
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "marker",
+        "City": "Philadelphia",
+        "Population (thousands)": 6069.875,
+        "Median HH Income (inflation adjusted USD)": "51.455.00",
+        "Poverty Rate (%)": 13.1,
+        "Employment Growth (%)": 2.954
+      },
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -75.55023193359374,
-          39.74521015328692
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -75.35591125488281,
-          39.85019377385963
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -74.74479675292969,
-          40.217159801771885
-        ]
-      }
-    },
-    {
-      "type": "Feature",
-      "properties": {},
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -75.11979103088377,
-          39.94488414688406
+          -75.333251953125,
+          39.863371338285305
         ]
       }
     }
