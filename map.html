@@ -1,0 +1,254 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="tooltip.css">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <title>A D3 chart</title>
+    <script src="d3.v3.min.js" charset="utf-8"></script>
+    <script src="thirdDistrictFull.js"></script>
+    <script src="cities.js"></script>
+    <script src="states.js"></script>
+    <script src="statesLabels.js"></script>
+    <!--<script src="tooltip.js"></script>-->
+    <style type="text/css">
+        #map {
+            margin: 2%;
+            padding: 20px;
+            border: 0px solid #d0d0d0;
+            border-radius: 5px;
+        }
+        
+        .state {
+            fill: #696a6c;
+        }
+        
+        .state-label {
+            fill: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            text-anchor: middle;
+        }
+        
+        .alt-state-label {
+            fill: #003a63;
+            font-size: 11px;
+            font-weight: bolder;
+            text-anchor: middle;
+        }
+        
+        .county {
+            fill: #c6d79e;
+            stroke: #fff;
+            stroke-width: 0.5px;
+        }
+        
+        .city {
+            fill: #003a63;
+        }
+        
+        .city:hover {
+            fill: #fff;
+        }
+        
+        .city-label {
+            fill: #003a63;
+            font-size: 11px;
+            font-weight: bold;
+            text-anchor: middle;
+        }
+        
+        .popover  {
+            min-width: 375px;
+            border-radius: 0;
+        }
+        .popover-title {
+            font-size: 16px;
+            color: #a14a13;
+            font-weight: bold;
+            background: #fff;
+            border: 0;
+            text-align: center;
+        }
+        
+        .stats td:first-child {
+            padding-right: 10px;
+            white-space: nowrap;
+            font-size: 10pt;
+            text-align: right;
+        }
+
+        .stats td:last-child {
+            padding-left: 10px;
+            font-size: 10pt;
+            color: #003a63;
+            text-align: left;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        d3.select(window)
+            .on("resize", sizeChange);
+
+        var projection = d3.geo.stereographic()
+            .scale(9600)
+            .rotate([71.057, 0])
+            .center([-5, 40.5]);
+
+        var geoPath = d3.geo.path()
+            .projection(projection)
+            .pointRadius(4);
+
+        var svg = d3.select("#map")
+            .append("svg")
+            .attr("width", "100%")
+
+        var states = svg.append("g")
+            .attr("id", "states");
+
+        states.selectAll("path")
+            .data(state.features)
+            .enter()
+            .append("path")
+            .attr("fill", "#fff")
+            .attr("d", geoPath)
+            .transition()
+            .delay(function (d, i) {
+                return (i + 10) * 45
+            })
+            .attr("class", function (d) {
+                return d.properties.class
+            })
+            .text(function (d) {
+                return d.properties.NAME;
+            });
+
+        var stateLabel = svg.append("g")
+            .attr("id", "stateLabels");
+
+        stateLabel.selectAll("path")
+            .data(stateLabels.features)
+            .enter()
+            .append("text")
+            .attr("class", function (d) {
+                return d.properties.class;
+            })
+            .attr("transform", function (d) {
+                return "translate(" + geoPath.centroid(d) + ")";
+            })
+            .attr("dx", function (d) {
+                return d.properties.dx
+            })
+            .attr("dy", function (d) {
+                return d.properties.dy
+            })
+            .text(function (d) {
+                return d.properties.Name;
+            });
+
+        var counties = svg.append("g")
+            .attr("id", "counties");
+
+        var countiesSelection = counties.selectAll("path")
+            .data(county.features);
+
+        countiesSelection.enter()
+            .append("path")
+            .attr("fill", "#fff")
+            .attr("d", geoPath)
+            .transition()
+            .delay(function (d, i) {
+                return i * 10
+            })
+            .attr("class", function (d) {
+                return d.properties.class
+            });
+
+        countiesSelection
+            .append("svg:title")
+            .text(function (d) {
+                return d.properties.NAME;
+            });
+
+        var cities = svg.append("g")
+            .attr("id", "cities");
+
+        var citiesSelection = cities.selectAll("circle")
+            .data(city.features);
+
+        citiesSelection.enter()
+            .append("path")
+            .attr("d", geoPath)
+            .attr("class", function (d) {
+                return d.properties.class
+            })
+
+        citiesSelection.append("svg:title")
+            .text(function (d) {
+                return d.properties.City;
+            });
+
+        citiesSelection.enter()
+            .append("text")
+            .attr("class", function (d) {
+                return "city-label";
+            })
+            .attr("transform", function (d) {
+                return "translate(" + geoPath.centroid(d) + ")";
+            })
+            .attr("dx", function (d) {
+                return d.properties.dx;
+            })
+            .attr("dy", function (d) {
+                return d.properties.dy;
+            })
+            .text(function (d) {
+                return d.properties.City;
+            });
+
+        $("path.city").each(function () {
+            $(this).popover({
+                title: this.__data__.properties.City,
+                content: function () {
+                    return "<table class='stats' style='width:100%'>" + 
+                    "<tr><td>Population (thousands)</td><td>" + this.__data__.properties.Population + "</td></tr>" + 
+                    "<tr><td>Median HH Income (inflation adjusted USD)</td><td>" + this.__data__.properties.Median + "</td></tr>" + 
+                    "<tr><td>Poverty (%)</td><td>" + this.__data__.properties.Poverty + "</td></tr>" + 
+                    "<tr><td>Employment Growth (%)</td><td>" + this.__data__.properties.Employment + "</td></tr></table>";
+                },
+                container: $("#map"),
+                html: true,
+                placement: "top"
+            });
+        });
+
+        d3.select(window)
+            .on("resize", sizeChange);
+
+        function sizeChange() {
+            d3.selectAll("g").attr("transform", "scale(" + $("#map").width() / 900 + ")");
+            $("svg").height($("#map").width() * 0.618);
+        }
+
+        $(document).on('click', function (e) {
+            $('[data-toggle="popover"],[data-original-title]').each(function () {
+                if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+                    (($(this).popover('hide').data('bs.popover') || {}).inState || {}).click = false
+                }
+            });
+        });
+
+        $(document).ready(function() {
+             sizeChange();
+        });
+    </script>
+</body>
+
+</html>
